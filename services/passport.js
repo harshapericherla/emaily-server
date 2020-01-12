@@ -22,19 +22,16 @@ passport.use(new GoogleStrategy({
     clientID: keys.googleClientId,
     clientSecret: keys.googleClientSecret,
     callbackURL: '/auth/google/callback',
+    /* Used proxy true becuase servers like heroku uses proxy to map request to the server, 
+       therefore the browser inherently cannot trust a proxy and converts the https to htpp */
     proxy: true
-    },(accessToken,refreshToken,profile,done) => {
-        
-        User.findOne({'googleId':profile.id}).then(existingUser => {
-            if(existingUser){
-                 done(null,existingUser);
-            } 
-            else
-            {
-                new User({googleId:profile.id})
-                .save()
-                .then( user => done(null,user));
-            }
-        })
-    })
-);
+    },
+    async (accessToken,refreshToken,profile,done) => {        
+        const existingUser = await User.findOne({'googleId':profile.id});
+        if(existingUser){
+               return done(null,existingUser);
+        } 
+        const user = await new User({googleId:profile.id}).save();
+        done(null,user);
+    }
+));
