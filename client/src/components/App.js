@@ -5,9 +5,8 @@ import Header from './Header';
 import * as actions from '../actions';
 import { connect } from 'react-redux';
 import Landing from './Landing';
-
-const DashBoard = () => <h2>Dash</h2>;
-const SurveyNew = () => <h2>Survey</h2>;
+import DashBoard from './DashBoard';
+import SurveyNew from './surveys/SurveyNew';
 
 class App extends Component {
     
