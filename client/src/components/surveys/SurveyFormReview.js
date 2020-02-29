@@ -28,7 +28,7 @@ const SurveyReviewComponent = ({onCancel,formValues,submitSurvey,history}) => {
            onClick = {onCancel}>
               Back
            </button>
-           <button className="green btn-flat right white-text" onClick={ () => submitSurvey(formValues,history)}>
+           <button className="green btn-flat right white-text" onClick={ () => {console.log(formValues);  submitSurvey(formValues,history)}}>
               Send Survey
               <i className="material-icons right">email</i>
             </button>
